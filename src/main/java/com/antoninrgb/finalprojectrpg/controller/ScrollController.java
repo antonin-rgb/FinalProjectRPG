@@ -1,9 +1,10 @@
 package com.antoninrgb.finalprojectrpg.controller;
+import com.antoninrgb.finalprojectrpg.model.Scroll;
 import com.antoninrgb.finalprojectrpg.service.ScrollService;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Component
+@RestController
 @RequestMapping("/scroll")
 public class ScrollController {
 
@@ -12,4 +13,15 @@ public class ScrollController {
     public ScrollController(ScrollService scrollService) {
         this.scrollService = scrollService;
     }
+
+    @GetMapping
+    public List<Scroll> getAll() {
+        return scrollService.findAllScrolls();
+    }
+
+    @PostMapping("/create")
+    public Scroll create(@RequestBody Scroll scroll) {
+        return scrollService.save(scroll);
+    }
+
 }

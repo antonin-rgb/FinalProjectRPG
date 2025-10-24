@@ -1,10 +1,10 @@
 package com.antoninrgb.finalprojectrpg.controller;
-
+import com.antoninrgb.finalprojectrpg.model.Inventory;
 import com.antoninrgb.finalprojectrpg.service.InventoryService;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Component
+@RestController
 @RequestMapping("/inventory")
 public class InventoryController {
 
@@ -13,4 +13,15 @@ public class InventoryController {
     public InventoryController(InventoryService inventoryService) {
         this.inventoryService = inventoryService;
     }
+
+    @GetMapping
+    public List<Inventory> getAll() {
+        return inventoryService.findAllInventories();
+    }
+
+    @PostMapping("/create")
+    public Inventory create(@RequestBody Inventory inventory) {
+        return inventoryService.save(inventory);
+    }
+
 }

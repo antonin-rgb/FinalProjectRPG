@@ -1,5 +1,7 @@
 package com.antoninrgb.finalprojectrpg.model;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Virtue {
@@ -11,14 +13,19 @@ public class Virtue {
 
     private String description;
 
-    @ManyToOne
-    private Specialty specialty;
+    @ManyToMany
+    @JoinTable(
+            name = "virtue_specialties",
+            joinColumns = @JoinColumn(name = "virtue_id"),
+            inverseJoinColumns = @JoinColumn(name = "specialty_id")
+    )
+    private List<Specialty> specialties = new ArrayList<>();
 
     /* Constructors, getters, setters */
-    public Virtue(String name, String description, Specialty specialty) {
+    public Virtue(String name, String description, List<Specialty> specialties) {
         this.name = name;
         this.description = description;
-        this.specialty = specialty;
+        this.specialties = specialties;
     }
 
     public Virtue() {
@@ -44,11 +51,11 @@ public class Virtue {
         this.description = description;
     }
 
-    public Specialty getSpecialty() {
-        return specialty;
+    public List<Specialty> getSpecialties() {
+        return specialties;
     }
 
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
+    public void setSpecialty(List<Specialty> specialties) {
+        this.specialties = specialties;
     }
 }

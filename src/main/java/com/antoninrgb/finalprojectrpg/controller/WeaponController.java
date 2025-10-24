@@ -1,10 +1,10 @@
 package com.antoninrgb.finalprojectrpg.controller;
-
+import com.antoninrgb.finalprojectrpg.model.Weapon;
 import com.antoninrgb.finalprojectrpg.service.WeaponService;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Component
+@RestController
 @RequestMapping("/weapon")
 public class WeaponController {
 
@@ -13,4 +13,15 @@ public class WeaponController {
     public WeaponController (WeaponService weaponService) {
         this.weaponService = weaponService;
     }
+
+    @GetMapping
+    public List<Weapon> getAll() {
+        return weaponService.findAllWeapons();
+    }
+
+    @PostMapping("/create")
+    public Weapon create(@RequestBody Weapon weapon) {
+        return weaponService.save(weapon);
+    }
+
 }

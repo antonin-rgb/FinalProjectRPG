@@ -1,10 +1,10 @@
 package com.antoninrgb.finalprojectrpg.controller;
-
+import com.antoninrgb.finalprojectrpg.model.Player;
 import com.antoninrgb.finalprojectrpg.service.PlayerService;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Component
+@RestController
 @RequestMapping("/player")
 public class PlayerController {
 
@@ -13,4 +13,16 @@ public class PlayerController {
     public PlayerController(PlayerService playerService) {
         this.playerService = playerService;
     }
+
+    @GetMapping
+    public List<Player> getAll() {
+        return playerService.findAllPlayers();
+    }
+
+    @PostMapping("/create")
+    public Player create(@RequestBody Player player) {
+        return playerService.save(player);
+    }
+
+
 }

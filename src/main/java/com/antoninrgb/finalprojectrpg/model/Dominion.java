@@ -1,8 +1,6 @@
 package com.antoninrgb.finalprojectrpg.model;
 import com.antoninrgb.finalprojectrpg.enums.Element;
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Dominion {
@@ -18,17 +16,12 @@ public class Dominion {
     @Enumerated(EnumType.STRING)
     private Element element;
 
-    @ManyToMany
-    @JoinTable(
-            name = "dominion_specialties",
-            joinColumns = @JoinColumn(name = "dominion_id"),
-            inverseJoinColumns = @JoinColumn(name = "specialty_id")
-    )
-    private List<Specialty> specialties = new ArrayList<>();
+    @ManyToOne
+    private Specialty specialty;
 
     /* Constructors, getters, setters */
-    public Dominion(List<Specialty> specialties, Element element, String description, String name) {
-        this.specialties = specialties;
+    public Dominion(Specialty specialty, Element element, String description, String name) {
+        this.specialty = specialty;
         this.element = element;
         this.description = description;
         this.name = name;
@@ -65,11 +58,11 @@ public class Dominion {
         this.element = element;
     }
 
-    public List<Specialty> getSpecialties() {
-        return specialties;
+    public Specialty getSpecialty() {
+        return specialty;
     }
 
-    public void setSpecialties(List<Specialty> specialties) {
-        this.specialties = specialties;
+    public void setSpecialties(Specialty specialty) {
+        this.specialty = specialty;
     }
 }

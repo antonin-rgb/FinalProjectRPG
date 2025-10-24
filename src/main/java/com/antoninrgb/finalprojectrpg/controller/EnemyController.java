@@ -1,10 +1,10 @@
 package com.antoninrgb.finalprojectrpg.controller;
-
+import com.antoninrgb.finalprojectrpg.model.Enemy;
 import com.antoninrgb.finalprojectrpg.service.EnemyService;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-@Component
+@RestController
 @RequestMapping("/enemy")
 public class EnemyController {
 
@@ -13,4 +13,15 @@ public class EnemyController {
     public EnemyController (EnemyService enemyService) {
         this.enemyService = enemyService;
     }
+
+    @GetMapping
+    public List<Enemy> getAll() {
+        return enemyService.findAllEnemies();
+    }
+
+    @PostMapping("/create")
+    public Enemy create(@RequestBody Enemy enemy) {
+        return enemyService.save(enemy);
+    }
+
 }

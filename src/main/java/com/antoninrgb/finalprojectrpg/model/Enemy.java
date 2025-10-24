@@ -1,4 +1,5 @@
 package com.antoninrgb.finalprojectrpg.model;
+import com.antoninrgb.finalprojectrpg.enums.EnemyType;
 import jakarta.persistence.*;
 
 @Entity

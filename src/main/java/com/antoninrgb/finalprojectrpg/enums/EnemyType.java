@@ -1,4 +1,4 @@
-package com.antoninrgb.finalprojectrpg.model;
+package com.antoninrgb.finalprojectrpg.enums;
 
 public enum EnemyType {
     BOSS,

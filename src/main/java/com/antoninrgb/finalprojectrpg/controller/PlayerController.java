@@ -24,5 +24,20 @@ public class PlayerController {
         return playerService.save(player);
     }
 
+    @PatchMapping("/{playerId}/path/{pathId}")
+    public Player choosePath(@PathVariable int playerId, @PathVariable int pathId) {
+        return playerService.assignPath(playerId, pathId);
+    }
+
+    @PatchMapping("/{playerId}/virtue/{virtueId}")
+    public Player chooseVirtue(@PathVariable int playerId, @PathVariable int virtueId) {
+        return playerService.assignVirtue(playerId, virtueId);
+    }
+
+    @PatchMapping("/{playerId}/dominion/{dominionId}")
+    public Player chooseDominion(@PathVariable int playerId, @PathVariable int dominionId) {
+        return playerService.assignDominion(playerId, dominionId);
+    }
+
 
 }

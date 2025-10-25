@@ -26,11 +26,14 @@ public class Player {
     @OneToOne
     private Inventory inventory;
 
+    @ManyToOne
+    private Dominion dominion;
+
     @OneToMany(mappedBy = "player")
     private List<Battle> battle = new ArrayList<>();
 
     /* Constructors, getters, setters */
-    public Player(String nickname, double hp, double attack, double magic, Path path, Virtue virtue, Inventory inventory, List<Battle> battle) {
+    public Player(String nickname, double hp, double attack, double magic, Path path, Virtue virtue, Inventory inventory, Dominion dominion, List<Battle> battle) {
         this.nickname = nickname;
         this.hp = hp;
         this.attack = attack;
@@ -38,6 +41,7 @@ public class Player {
         this.path = path;
         this.virtue = virtue;
         this.inventory = inventory;
+        this.dominion = dominion;
         this.battle = battle;
     }
 
@@ -106,6 +110,14 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public Dominion getDominion() {
+        return dominion;
+    }
+
+    public void setDominion(Dominion dominion) {
+        this.dominion = dominion;
     }
 
     public List<Battle> getBattle() {

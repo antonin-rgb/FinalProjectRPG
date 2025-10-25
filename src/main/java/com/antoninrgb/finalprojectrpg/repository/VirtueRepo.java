@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VirtueRepo extends JpaRepository<Virtue, Integer> {
+
+    Virtue findById(int id);
 }

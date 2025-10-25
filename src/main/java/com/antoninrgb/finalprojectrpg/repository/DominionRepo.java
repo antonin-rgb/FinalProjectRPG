@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DominionRepo extends JpaRepository<Dominion, Integer> {
+
+    Dominion findById(int id);
 }

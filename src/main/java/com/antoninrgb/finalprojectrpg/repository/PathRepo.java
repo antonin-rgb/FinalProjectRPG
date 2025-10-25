@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PathRepo extends JpaRepository<Path, Integer> {
+
+    Path findById(int id);
 }

@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Player {
+public class Character {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String nickname;
+
+    private String password;
 
     private double hp = 500;
 
@@ -29,12 +31,17 @@ public class Player {
     @ManyToOne
     private Dominion dominion;
 
-    @OneToMany(mappedBy = "player")
-    private List<Battle> battle = new ArrayList<>();
+    @OneToMany(mappedBy = "character")
+    private List<Battle> battles = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     /* Constructors, getters, setters */
-    public Player(String nickname, double hp, double attack, double magic, Path path, Virtue virtue, Inventory inventory, Dominion dominion, List<Battle> battle) {
+    public Character(String nickname, String password, double hp, double attack, double magic, Path path, Virtue virtue, Inventory inventory, Dominion dominion, List<Battle> battles, User user) {
         this.nickname = nickname;
+        this.password = password;
         this.hp = hp;
         this.attack = attack;
         this.magic = magic;
@@ -42,13 +49,14 @@ public class Player {
         this.virtue = virtue;
         this.inventory = inventory;
         this.dominion = dominion;
-        this.battle = battle;
+        this.battles = battles;
+        this.user = user;
     }
 
-    public Player() {
+    public Character() {
     }
 
-    public Player(String nickname) {
+    public Character(String nickname) {
         this.nickname = nickname;
     }
 
@@ -62,6 +70,14 @@ public class Player {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public double getHp() {
@@ -120,11 +136,19 @@ public class Player {
         this.dominion = dominion;
     }
 
-    public List<Battle> getBattle() {
-        return battle;
+    public List<Battle> getBattles() {
+        return battles;
     }
 
-    public void setBattle(List<Battle> battle) {
-        this.battle = battle;
+    public void setBattles(List<Battle> battles) {
+        this.battles = battles;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

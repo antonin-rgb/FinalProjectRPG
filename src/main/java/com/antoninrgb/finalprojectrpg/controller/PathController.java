@@ -1,6 +1,5 @@
 package com.antoninrgb.finalprojectrpg.controller;
 import com.antoninrgb.finalprojectrpg.model.Path;
-import com.antoninrgb.finalprojectrpg.model.Player;
 import com.antoninrgb.finalprojectrpg.service.PathService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;

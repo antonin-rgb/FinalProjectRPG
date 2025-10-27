@@ -1,22 +1,23 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.*;
+import com.antoninrgb.finalprojectrpg.model.Character;
 import com.antoninrgb.finalprojectrpg.repository.*;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Random;
 
 @Service
-public class PlayerService {
+public class CharacterService {
 
-    private final PlayerRepo playerRepo;
+    private final CharacterRepo characterRepo;
     private final InventoryRepo inventoryRepo;
     private final PathRepo pathRepo;
     private final VirtueRepo virtueRepo;
     private final DominionRepo dominionRepo;
     private final EnemyRepo enemyRepo;
 
-    public PlayerService(PlayerRepo playerRepo, InventoryRepo inventoryRepo, PathRepo pathRepo, VirtueRepo virtueRepo, DominionRepo dominionRepo, EnemyRepo enemyRepo) {
-        this.playerRepo = playerRepo;
+    public CharacterService(CharacterRepo characterRepo, InventoryRepo inventoryRepo, PathRepo pathRepo, VirtueRepo virtueRepo, DominionRepo dominionRepo, EnemyRepo enemyRepo) {
+        this.characterRepo = characterRepo;
         this.inventoryRepo = inventoryRepo;
         this.pathRepo = pathRepo;
         this.virtueRepo = virtueRepo;
@@ -24,56 +25,56 @@ public class PlayerService {
         this.enemyRepo = enemyRepo;
     }
 
-    public List<Player> findAllPlayers() {
-        return playerRepo.findAll();
+    public List<Character> findAllPlayers() {
+        return characterRepo.findAll();
     }
 
     /* Upon creating a new player, an inventory is automatically created with a set amount of gold and assigned to the same player. */
-    public Player save(Player player) {
+    public Character save(Character character) {
         Inventory inventory = new Inventory();
         inventory.setGold(500.0);
-        player.setInventory(inventory);
-        return playerRepo.save(player);
+        character.setInventory(inventory);
+        return characterRepo.save(character);
     }
 
-    public Player assignPath(int playerId, int pathId) {
-        Player player = playerRepo.findById(playerId);
+    public Character assignPath(int playerId, int pathId) {
+        Character character = characterRepo.findById(playerId);
         Path path = pathRepo.findById(pathId);
-        if (player.getPath() != null) {
+        if (character.getPath() != null) {
             throw new IllegalStateException("Player already has a Path assigned.");
         } else {
-            player.setPath(path);
-            player.setHp(player.getHp() + path.getHp_bonus());
-            player.setAttack(player.getAttack() + path.getAttack_bonus());
-            player.setMagic(player.getMagic() + path.getMagic_bonus());
-            return playerRepo.save(player);
+            character.setPath(path);
+            character.setHp(character.getHp() + path.getHp_bonus());
+            character.setAttack(character.getAttack() + path.getAttack_bonus());
+            character.setMagic(character.getMagic() + path.getMagic_bonus());
+            return characterRepo.save(character);
         }
     }
 
-    public Player assignVirtue(int playerId, int virtueId) {
-        Player player = playerRepo.findById(playerId);
+    public Character assignVirtue(int playerId, int virtueId) {
+        Character character = characterRepo.findById(playerId);
         Virtue virtue = virtueRepo.findById(virtueId);
-        if (player.getVirtue() != null) {
+        if (character.getVirtue() != null) {
             throw new IllegalStateException("Player already has a Virtue assigned.");
         } else {
-            player.setVirtue(virtue);
-            return playerRepo.save(player);
+            character.setVirtue(virtue);
+            return characterRepo.save(character);
         }
     }
 
-    public Player assignDominion(int playerId, int dominionId) {
-        Player player = playerRepo.findById(playerId);
+    public Character assignDominion(int playerId, int dominionId) {
+        Character character = characterRepo.findById(playerId);
         Dominion dominion = dominionRepo.findById(dominionId);
-        if (player.getDominion() != null) {
+        if (character.getDominion() != null) {
             throw new IllegalStateException("You already chose a dominion.");
         } else {
-            player.setDominion(dominion);
+            character.setDominion(dominion);
             List<Enemy> enemiesDominion = enemyRepo.findByDominionId(dominionId);
             Enemy enemySelected = enemiesDominion.get(new Random().nextInt(enemiesDominion.size()));
             Battle battle = new Battle();
             battle.setEnemy(enemySelected);
-            battle.setPlayer(player);
-            return playerRepo.save(player);
+            battle.setPlayer(character);
+            return characterRepo.save(character);
         }
     }
 }

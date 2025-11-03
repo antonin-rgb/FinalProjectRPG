@@ -1,23 +1,28 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Virtue;
-import com.antoninrgb.finalprojectrpg.repository.VirtueRepo;
+import com.antoninrgb.finalprojectrpg.repository.VirtueRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class VirtueService {
 
-    private final VirtueRepo virtueRepo;
+    private final VirtueRepository virtueRepository;
 
-    public VirtueService(VirtueRepo virtueRepo) {
-        this.virtueRepo = virtueRepo;
+    public VirtueService(VirtueRepository virtueRepository) {
+        this.virtueRepository = virtueRepository;
     }
 
     public List<Virtue> findAllVirtues() {
-        return virtueRepo.findAll();
+        return virtueRepository.findAll();
     }
 
     public Virtue save(Virtue virtue) {
-        return virtueRepo.save(virtue);
+        return virtueRepository.save(virtue);
     }
+
+    public Virtue findByName(String name) {
+        return virtueRepository.findByName(name);
+    }
+
 }

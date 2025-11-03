@@ -18,15 +18,11 @@ public class Specialty {
 
     private double value;
 
-    @ManyToMany(mappedBy = "specialties")
-    private List<Virtue> virtues = new ArrayList<>();
-
     /* Constructors, getters, setters */
-    public Specialty(String name, SpecialtyType type, double value, List<Virtue> virtues) {
+    public Specialty(String name, SpecialtyType type, double value) {
         this.name = name;
         this.type = type;
         this.value = value;
-        this.virtues = virtues;
     }
 
     public Specialty() {
@@ -58,13 +54,5 @@ public class Specialty {
 
     public void setValue(double value) {
         this.value = value;
-    }
-
-    public List<Virtue> getVirtues() {
-        return virtues;
-    }
-
-    public void setVirtues(List<Virtue> virtues) {
-        this.virtues = virtues;
     }
 }

@@ -1,24 +1,27 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Dominion;
-import com.antoninrgb.finalprojectrpg.repository.DominionRepo;
+import com.antoninrgb.finalprojectrpg.repository.DominionRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class DominionService {
 
-    private final DominionRepo dominionRepo;
+    private final DominionRepository dominionRepository;
 
-    public DominionService(DominionRepo dominionRepo) {
-        this.dominionRepo = dominionRepo;
+    public DominionService(DominionRepository dominionRepository) {
+        this.dominionRepository = dominionRepository;
     }
 
     public List<Dominion> findAllDominions() {
-        return dominionRepo.findAll();
+        return dominionRepository.findAll();
     }
 
     public Dominion save(Dominion dominion) {
-        return dominionRepo.save(dominion);
+        return dominionRepository.save(dominion);
     }
 
+    public Dominion findByName(String name) {
+        return dominionRepository.findByName(name);
+    }
 }

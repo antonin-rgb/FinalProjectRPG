@@ -1,23 +1,23 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Scroll;
-import com.antoninrgb.finalprojectrpg.repository.ScrollRepo;
+import com.antoninrgb.finalprojectrpg.repository.ScrollRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class ScrollService {
 
-    private final ScrollRepo scrollRepo;
+    private final ScrollRepository scrollRepository;
 
-    public ScrollService(ScrollRepo scrollRepo) {
-        this.scrollRepo = scrollRepo;
+    public ScrollService(ScrollRepository scrollRepository) {
+        this.scrollRepository = scrollRepository;
     }
 
     public List<Scroll> findAllScrolls() {
-        return scrollRepo.findAll();
+        return scrollRepository.findAll();
     }
 
     public Scroll save(Scroll scroll) {
-        return scrollRepo.save(scroll);
+        return scrollRepository.save(scroll);
     }
 }

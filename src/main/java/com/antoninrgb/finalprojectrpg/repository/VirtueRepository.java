@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface VirtueRepo extends JpaRepository<Virtue, Integer> {
+public interface VirtueRepository extends JpaRepository<Virtue, Integer> {
 
     Virtue findById(int id);
+
+    Virtue findByName(String name);
 }

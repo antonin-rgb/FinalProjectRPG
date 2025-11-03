@@ -1,6 +1,6 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Weapon;
-import com.antoninrgb.finalprojectrpg.repository.WeaponRepo;
+import com.antoninrgb.finalprojectrpg.repository.WeaponRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -8,18 +8,18 @@ import java.util.List;
 @Service
 public class WeaponService {
 
-    private final WeaponRepo weaponRepo;
+    private final WeaponRepository weaponRepository;
 
-    public WeaponService(WeaponRepo weaponRepo) {
-        this.weaponRepo = weaponRepo;
+    public WeaponService(WeaponRepository weaponRepository) {
+        this.weaponRepository = weaponRepository;
     }
 
     public List<Weapon> findAllWeapons() {
-        return weaponRepo.findAll();
+        return weaponRepository.findAll();
     }
 
     public Weapon save(Weapon weapon) {
-        return weaponRepo.save(weapon);
+        return weaponRepository.save(weapon);
     }
 
 }

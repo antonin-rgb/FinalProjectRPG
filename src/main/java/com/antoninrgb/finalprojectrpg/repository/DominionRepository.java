@@ -5,7 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DominionRepo extends JpaRepository<Dominion, Integer> {
+public interface DominionRepository extends JpaRepository<Dominion, Integer> {
 
     Dominion findById(int id);
+
+    Dominion findByName(String name);
 }

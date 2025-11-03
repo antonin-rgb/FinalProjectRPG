@@ -1,23 +1,27 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Path;
-import com.antoninrgb.finalprojectrpg.repository.PathRepo;
+import com.antoninrgb.finalprojectrpg.repository.PathRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class PathService {
 
-    private final PathRepo pathRepo;
+    private final PathRepository pathRepository;
 
-    public PathService(PathRepo pathRepo) {
-        this.pathRepo = pathRepo;
+    public PathService(PathRepository pathRepository) {
+        this.pathRepository = pathRepository;
     }
 
     public List<Path> findAllPaths() {
-        return pathRepo.findAll();
+        return pathRepository.findAll();
     }
 
     public Path save(Path path) {
-        return pathRepo.save(path);
+        return pathRepository.save(path);
+    }
+
+    public Path findByName(String name) {
+        return pathRepository.findByName(name);
     }
 }

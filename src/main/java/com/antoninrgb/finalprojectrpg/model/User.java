@@ -24,7 +24,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+   private String username;
 
     private String password;
 
@@ -37,7 +37,7 @@ public class User {
     private Collection<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Character> characters = new ArrayList<>();
+    private List<Avatar> avatars = new ArrayList<>();
 
     public User(String username, String password) {
         this.username = username;

@@ -9,7 +9,7 @@ public class Battle {
 
     @ManyToOne
     @JoinColumn(name = "player_id")
-    private Character character;
+    private Avatar avatar;
 
     @ManyToOne
     private Enemy enemy;
@@ -17,8 +17,8 @@ public class Battle {
     private boolean playerWon;
 
     /* Constructors, getters, setters */
-    public Battle(Character character, boolean playerWon, Enemy enemy) {
-        this.character = character;
+    public Battle(Avatar avatar, boolean playerWon, Enemy enemy) {
+        this.avatar = avatar;
         this.playerWon = playerWon;
         this.enemy = enemy;
     }
@@ -38,12 +38,12 @@ public class Battle {
         this.playerWon = playerWon;
     }
 
-    public Character getPlayer() {
-        return character;
+    public Avatar getPlayer() {
+        return avatar;
     }
 
-    public void setPlayer(Character character) {
-        this.character = character;
+    public void setPlayer(Avatar avatar) {
+        this.avatar = avatar;
     }
 
     public Enemy getEnemy() {

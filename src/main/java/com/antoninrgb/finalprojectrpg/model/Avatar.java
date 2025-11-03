@@ -1,17 +1,16 @@
 package com.antoninrgb.finalprojectrpg.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Character {
+public class Avatar {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String nickname;
-
-    private String password;
 
     private double hp = 500;
 
@@ -25,23 +24,23 @@ public class Character {
     @ManyToOne
     private Virtue virtue;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Inventory inventory;
 
     @ManyToOne
     private Dominion dominion;
 
-    @OneToMany(mappedBy = "character")
+    @OneToMany(mappedBy = "avatar")
     private List<Battle> battles = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     /* Constructors, getters, setters */
-    public Character(String nickname, String password, double hp, double attack, double magic, Path path, Virtue virtue, Inventory inventory, Dominion dominion, List<Battle> battles, User user) {
+    public Avatar(String nickname, double hp, double attack, double magic, Path path, Virtue virtue, Inventory inventory, Dominion dominion, List<Battle> battles, User user) {
         this.nickname = nickname;
-        this.password = password;
         this.hp = hp;
         this.attack = attack;
         this.magic = magic;
@@ -53,10 +52,10 @@ public class Character {
         this.user = user;
     }
 
-    public Character() {
+    public Avatar() {
     }
 
-    public Character(String nickname) {
+    public Avatar(String nickname) {
         this.nickname = nickname;
     }
 
@@ -70,14 +69,6 @@ public class Character {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public double getHp() {

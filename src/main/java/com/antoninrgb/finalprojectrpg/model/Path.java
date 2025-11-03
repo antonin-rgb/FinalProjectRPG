@@ -1,4 +1,5 @@
 package com.antoninrgb.finalprojectrpg.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,10 +12,13 @@ public class Path {
 
     private String description;
 
+    @JsonIgnore
     private double hp_bonus;
 
+    @JsonIgnore
     private double attack_bonus;
 
+    @JsonIgnore
     private double magic_bonus;
 
     /* Constructors, getters, setters */

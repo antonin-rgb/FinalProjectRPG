@@ -31,6 +31,9 @@ public class Virtue {
     public Virtue() {
     }
 
+    public Virtue(String name, String description) {
+    }
+
     public int getId() {
         return id;
     }

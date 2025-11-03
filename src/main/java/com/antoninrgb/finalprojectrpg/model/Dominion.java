@@ -20,14 +20,17 @@ public class Dominion {
     private Specialty specialty;
 
     /* Constructors, getters, setters */
-    public Dominion(Specialty specialty, Element element, String description, String name) {
-        this.specialty = specialty;
-        this.element = element;
-        this.description = description;
+    public Dominion(String name, String description, Element element, Specialty specialty) {
         this.name = name;
+        this.description = description;
+        this.element = element;
+        this.specialty = specialty;
     }
 
     public Dominion() {
+    }
+
+    public Dominion(String name, String description, Element element) {
     }
 
     public int getId() {
@@ -62,7 +65,7 @@ public class Dominion {
         return specialty;
     }
 
-    public void setSpecialties(Specialty specialty) {
+    public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
     }
 }

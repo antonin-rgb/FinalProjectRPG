@@ -1,24 +1,24 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Enemy;
-import com.antoninrgb.finalprojectrpg.repository.EnemyRepo;
+import com.antoninrgb.finalprojectrpg.repository.EnemyRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class EnemyService {
 
-    private final EnemyRepo enemyRepo;
+    private final EnemyRepository enemyRepository;
 
-    public EnemyService(EnemyRepo enemyRepo) {
-        this.enemyRepo = enemyRepo;
+    public EnemyService(EnemyRepository enemyRepository) {
+        this.enemyRepository = enemyRepository;
     }
 
     public List<Enemy> findAllEnemies() {
-        return enemyRepo.findAll();
+        return enemyRepository.findAll();
     }
 
     public Enemy save(Enemy enemy) {
-        return enemyRepo.save(enemy);
+        return enemyRepository.save(enemy);
     }
 
 

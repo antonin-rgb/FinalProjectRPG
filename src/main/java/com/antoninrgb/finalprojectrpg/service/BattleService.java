@@ -1,24 +1,24 @@
 package com.antoninrgb.finalprojectrpg.service;
 import com.antoninrgb.finalprojectrpg.model.Battle;
-import com.antoninrgb.finalprojectrpg.repository.BattleRepo;
+import com.antoninrgb.finalprojectrpg.repository.BattleRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class BattleService {
 
-    private final BattleRepo battleRepo;
+    private final BattleRepository battleRepository;
 
-    public BattleService(BattleRepo battleRepo) {
-        this.battleRepo = battleRepo;
+    public BattleService(BattleRepository battleRepository) {
+        this.battleRepository = battleRepository;
     }
 
     public List<Battle> findAllBattles() {
-        return battleRepo.findAll();
+        return battleRepository.findAll();
     }
 
     public Battle save(Battle battle) {
-        return battleRepo.save(battle);
+        return battleRepository.save(battle);
     }
 
 }

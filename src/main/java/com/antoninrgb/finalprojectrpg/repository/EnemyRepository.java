@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EnemyRepo extends JpaRepository<Enemy, Integer> {
+public interface EnemyRepository extends JpaRepository<Enemy, Integer> {
 
     List<Enemy> findByDominionId(int id);
 }

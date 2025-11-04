@@ -14,20 +14,11 @@ public class Inventory {
     @ManyToOne
     private Weapon weapon;
 
-    @ManyToMany
-    @JoinTable(
-            name = "equipped_scrolls",
-            joinColumns = @JoinColumn(name = "inventory_id"),
-            inverseJoinColumns = @JoinColumn(name = "scroll_id")
-    )
-    private List<Scroll> scroll = new ArrayList<>();
-
     private double gold;
 
     /* Constructors, getters, setters */
-    public Inventory(Weapon weapon, List<Scroll> scroll, double gold) {
+    public Inventory(Weapon weapon, double gold) {
         this.weapon = weapon;
-        this.scroll = scroll;
         this.gold = gold;
     }
 
@@ -48,14 +39,6 @@ public class Inventory {
 
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
-    }
-
-    public List<Scroll> getScroll() {
-        return scroll;
-    }
-
-    public void setScroll(List<Scroll> scroll) {
-        this.scroll = scroll;
     }
 
     public double getGold() {

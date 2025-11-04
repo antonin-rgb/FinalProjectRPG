@@ -24,4 +24,6 @@ public class DominionService {
     public Dominion findByName(String name) {
         return dominionRepository.findByName(name);
     }
+
+
 }

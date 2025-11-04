@@ -1,5 +1,4 @@
 package com.antoninrgb.finalprojectrpg.model;
-import com.antoninrgb.finalprojectrpg.enums.Element;
 import jakarta.persistence.*;
 
 @Entity
@@ -12,9 +11,6 @@ public class Weapon {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Element element;
-
     private double attack;
 
     private double magic;
@@ -24,10 +20,9 @@ public class Weapon {
     private double price;
 
     /* Constructors, getters, setters */
-    public Weapon(String name, String description, Element element, double attack, double magic, double crit, double price) {
+    public Weapon(String name, String description, double attack, double magic, double crit, double price) {
         this.name = name;
         this.description = description;
-        this.element = element;
         this.attack = attack;
         this.magic = magic;
         this.crit = crit;
@@ -55,14 +50,6 @@ public class Weapon {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Element getElement() {
-        return element;
-    }
-
-    public void setElement(Element element) {
-        this.element = element;
     }
 
     public double getAttack() {

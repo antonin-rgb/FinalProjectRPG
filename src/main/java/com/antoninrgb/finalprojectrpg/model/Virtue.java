@@ -13,7 +13,7 @@ public class Virtue {
 
     private String description;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "virtue_specialties",
             joinColumns = @JoinColumn(name = "virtue_id"),
@@ -32,6 +32,8 @@ public class Virtue {
     }
 
     public Virtue(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public int getId() {

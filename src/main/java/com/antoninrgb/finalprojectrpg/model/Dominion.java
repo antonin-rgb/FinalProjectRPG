@@ -1,5 +1,4 @@
 package com.antoninrgb.finalprojectrpg.model;
-import com.antoninrgb.finalprojectrpg.enums.Element;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,24 +12,22 @@ public class Dominion {
 
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private Element element;
-
     @ManyToOne
     private Specialty specialty;
 
     /* Constructors, getters, setters */
-    public Dominion(String name, String description, Element element, Specialty specialty) {
+    public Dominion(String name, String description, Specialty specialty) {
         this.name = name;
         this.description = description;
-        this.element = element;
         this.specialty = specialty;
     }
 
     public Dominion() {
     }
 
-    public Dominion(String name, String description, Element element) {
+    public Dominion(String name, String description) {
+        this.name = name;
+        this.description = description;
     }
 
     public int getId() {
@@ -51,14 +48,6 @@ public class Dominion {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Element getElement() {
-        return element;
-    }
-
-    public void setElement(Element element) {
-        this.element = element;
     }
 
     public Specialty getSpecialty() {

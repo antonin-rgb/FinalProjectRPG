@@ -24,4 +24,9 @@ public class PathService {
     public Path findByName(String name) {
         return pathRepository.findByName(name);
     }
+
+    public Path findById(int id) {
+        return pathRepository.findById(id);
+    }
+
 }

@@ -1,8 +1,11 @@
 package com.antoninrgb.finalprojectrpg.controller;
 import com.antoninrgb.finalprojectrpg.model.Avatar;
+import com.antoninrgb.finalprojectrpg.model.Journey;
 import com.antoninrgb.finalprojectrpg.model.User;
+import com.antoninrgb.finalprojectrpg.repository.UserRepository;
 import com.antoninrgb.finalprojectrpg.service.AvatarService;
 import com.antoninrgb.finalprojectrpg.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.core.Authentication;
 import java.util.List;
@@ -12,11 +15,9 @@ import java.util.List;
 public class AvatarController {
 
     private final AvatarService avatarService;
-    private final UserService userService;
 
-    public AvatarController(AvatarService avatarService, UserService userService) {
+    public AvatarController(AvatarService avatarService) {
         this.avatarService = avatarService;
-        this.userService = userService;
     }
 
     @GetMapping
@@ -24,29 +25,30 @@ public class AvatarController {
         return avatarService.findAllAvatars();
     }
 
-    // this creates an avatar connected to the currently logged in user
+    // this creates an avatar connected to the currently logged-in user
     @PostMapping("/create")
     public Avatar create(@RequestBody Avatar avatar, Authentication authentication) {
-        String username = authentication.getName();
-        User user = userService.getUser(username);
-        avatar.setUser(user);
         return avatarService.save(avatar);
     }
 
-    @PatchMapping("{avatarId}/path/{pathId}")
-    public Avatar choosePath(@PathVariable int avatarId, @PathVariable int pathId) {
-        return avatarService.assignPath(avatarId, pathId);
+    @PatchMapping("/choose/{avatarId}")
+    public String chooseActiveAvatar(@PathVariable int avatarId) {
+        return avatarService.chooseActiveAvatar(avatarId);
     }
 
-    @PatchMapping("{avatarId}/virtue/{virtueId}")
-    public Avatar chooseVirtue(@PathVariable int avatarId, @PathVariable int virtueId) {
-        return avatarService.assignVirtue(avatarId, virtueId);
+    @PatchMapping("/choose/path/{pathId}")
+    public Avatar choosePath(@PathVariable int pathId) {
+        return avatarService.assignPath(pathId);
     }
 
-    @PatchMapping("{avatarId}/dominion/{dominionId}")
-    public Avatar chooseDominion(@PathVariable int avatarId, @PathVariable int dominionId) {
-        return avatarService.assignDominion(avatarId, dominionId);
+    @PatchMapping("/choose/virtue/{virtueId}")
+    public Avatar chooseVirtue(@PathVariable int virtueId) {
+        return avatarService.assignVirtue(virtueId);
     }
 
+    @PatchMapping("/choose/weapon/{weaponId}")
+    public Avatar chooseWeapon(@PathVariable int weaponId) {
+        return avatarService.assignWeapon(weaponId);
+    }
 
 }

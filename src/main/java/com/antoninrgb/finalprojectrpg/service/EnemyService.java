@@ -42,4 +42,7 @@ public class EnemyService {
         return enemyRepository.findByName(name);
     }
 
+    public List<Enemy> findByDominionId(int id) {
+        return enemyRepository.findByDominionId(id);
+    }
 }

@@ -1,4 +1,5 @@
 package com.antoninrgb.finalprojectrpg.service;
+import com.antoninrgb.finalprojectrpg.model.Path;
 import com.antoninrgb.finalprojectrpg.model.Virtue;
 import com.antoninrgb.finalprojectrpg.repository.VirtueRepository;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,10 @@ public class VirtueService {
 
     public Virtue findByName(String name) {
         return virtueRepository.findByName(name);
+    }
+
+    public Virtue findById(int id) {
+        return virtueRepository.findById(id);
     }
 
 }

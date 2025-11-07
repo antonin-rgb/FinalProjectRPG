@@ -1,8 +1,11 @@
 package com.antoninrgb.finalprojectrpg.service;
+import com.antoninrgb.finalprojectrpg.exception.ResourceNotFoundException;
 import com.antoninrgb.finalprojectrpg.model.*;
 import com.antoninrgb.finalprojectrpg.model.Avatar;
 import com.antoninrgb.finalprojectrpg.repository.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Random;
 
@@ -10,17 +13,21 @@ import java.util.Random;
 public class AvatarService {
 
     private final AvatarRepository avatarRepository;
-    private final PathRepository pathRepository;
-    private final VirtueRepository virtueRepository;
-    private final DominionRepository dominionRepository;
-    private final EnemyRepository enemyRepository;
+    private final PathService pathService;
+    private final VirtueService virtueService;
+    private final DominionService dominionService;
+    private final EnemyService enemyService;
+    private final WeaponService weaponService;
+    private final UserService userService;
 
-    public AvatarService(AvatarRepository avatarRepository, PathRepository pathRepository, VirtueRepository virtueRepository, DominionRepository dominionRepository, EnemyRepository enemyRepository) {
+    public AvatarService(AvatarRepository avatarRepository, PathService pathService, VirtueService virtueService, DominionService dominionService, EnemyService enemyService, WeaponService weaponService, UserService userService) {
         this.avatarRepository = avatarRepository;
-        this.pathRepository = pathRepository;
-        this.virtueRepository = virtueRepository;
-        this.dominionRepository = dominionRepository;
-        this.enemyRepository = enemyRepository;
+        this.pathService = pathService;
+        this.dominionService = dominionService;
+        this.virtueService = virtueService;
+        this.enemyService = enemyService;
+        this.weaponService = weaponService;
+        this.userService = userService;
     }
 
     public List<Avatar> findAllAvatars() {
@@ -29,15 +36,23 @@ public class AvatarService {
 
     /* Upon creating a new player, an inventory is automatically created with a set amount of gold and assigned to the same player. */
     public Avatar save(Avatar avatar) {
-        Inventory inventory = new Inventory();
-        inventory.setGold(500.0);
-        avatar.setInventory(inventory);
+        User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        avatar.setUser(user);
         return avatarRepository.save(avatar);
     }
 
-    public Avatar assignPath(int avatarId, int pathId) {
-        Avatar avatar = avatarRepository.findById(avatarId);
-        Path path = pathRepository.findById(pathId);
+    public String chooseActiveAvatar(int avatarId) {
+        User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        user.setActiveAvatarId(avatarId);
+        userService.saveUser(user);
+        return avatarRepository.findById(avatarId).getNickname() + "... your journey awaits... ";
+    }
+
+    public Avatar assignPath(int pathId) {
+        User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        int id = user.getActiveAvatarId();
+        Avatar avatar = avatarRepository.findById(id);
+        Path path = pathService.findById(pathId);
         if (avatar.getPath() != null) {
             throw new IllegalStateException("Character already has a Path assigned.");
         } else {
@@ -49,9 +64,11 @@ public class AvatarService {
         }
     }
 
-    public Avatar assignVirtue(int avatarId, int virtueId) {
-        Avatar avatar = avatarRepository.findById(avatarId);
-        Virtue virtue = virtueRepository.findById(virtueId);
+    public Avatar assignVirtue(int virtueId) {
+        User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        int id = user.getActiveAvatarId();
+        Avatar avatar = avatarRepository.findById(id);
+        Virtue virtue = virtueService.findById(virtueId);
         if (avatar.getVirtue() != null) {
             throw new IllegalStateException("Character already has a Virtue assigned.");
         } else {
@@ -60,18 +77,15 @@ public class AvatarService {
         }
     }
 
-    public Avatar assignDominion(int avatarId, int dominionId) {
-        Avatar avatar = avatarRepository.findById(avatarId);
-        Dominion dominion = dominionRepository.findById(dominionId);
-        if (avatar.getDominion() != null) {
-            throw new IllegalStateException("You already chose a dominion.");
+    public Avatar assignWeapon(int weaponId) {
+        User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
+        int id = user.getActiveAvatarId();
+        Avatar avatar = avatarRepository.findById(id);
+        Weapon weapon = weaponService.findById(weaponId);
+        if (avatar.getWeapon() != null) {
+            throw new ResourceNotFoundException("You already chose a dominion.");
         } else {
-            avatar.setDominion(dominion);
-            List<Enemy> enemiesDominion = enemyRepository.findByDominionId(dominionId);
-            Enemy enemySelected = enemiesDominion.get(new Random().nextInt(enemiesDominion.size()));
-            Battle battle = new Battle();
-            battle.setEnemy(enemySelected);
-            battle.setPlayer(avatar);
+            avatar.setWeapon(weapon);
             return avatarRepository.save(avatar);
         }
     }
@@ -79,4 +93,9 @@ public class AvatarService {
     public Avatar findByNickname(String nickname) {
         return avatarRepository.findByNickname(nickname);
     }
+
+    public Avatar findById(int id) {
+        return avatarRepository.findById(id);
+    }
+
 }

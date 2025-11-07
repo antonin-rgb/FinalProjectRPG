@@ -1,25 +1,18 @@
 package com.antoninrgb.finalprojectrpg.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Path {
 
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
-
-    private String description;
-
-    @JsonIgnore
-    private double hp_bonus;
-
-    @JsonIgnore
-    private double attack_bonus;
-
-    @JsonIgnore
-    private double magic_bonus;
+    @Getter @Id @GeneratedValue (strategy = GenerationType.IDENTITY) private int id;
+    @Getter @Setter private String name;
+    @Getter @Setter private String description;
+    @Getter @Setter @JsonIgnore private double hp_bonus;
+    @Getter @Setter @JsonIgnore private double attack_bonus;
+    @Getter @Setter @JsonIgnore private double magic_bonus;
 
     /* Constructors, getters, setters */
     public Path(String name, String description, double hp_bonus, double attack_bonus, double magic_bonus) {
@@ -33,47 +26,4 @@ public class Path {
     public Path() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getHp_bonus() {
-        return hp_bonus;
-    }
-
-    public void setHp_bonus(double hp_bonus) {
-        this.hp_bonus = hp_bonus;
-    }
-
-    public double getAttack_bonus() {
-        return attack_bonus;
-    }
-
-    public void setAttack_bonus(double attack_bonus) {
-        this.attack_bonus = attack_bonus;
-    }
-
-    public double getMagic_bonus() {
-        return magic_bonus;
-    }
-
-    public void setMagic_bonus(double magic_bonus) {
-        this.magic_bonus = magic_bonus;
-    }
 }

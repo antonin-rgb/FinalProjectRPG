@@ -26,4 +26,7 @@ public class DominionService {
     }
 
 
+    public Dominion findById(int id) {
+        return dominionRepository.findById(id);
+    }
 }

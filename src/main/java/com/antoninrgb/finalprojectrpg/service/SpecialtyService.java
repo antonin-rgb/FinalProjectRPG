@@ -44,7 +44,7 @@ public class SpecialtyService {
             throw new IllegalArgumentException("Specialty not found: " + name);
         }
 
-        virtue.getSpecialties().add(specialty);
+        virtue.setSpecialty(specialty);
         virtueRepository.save(virtue);
     }
 

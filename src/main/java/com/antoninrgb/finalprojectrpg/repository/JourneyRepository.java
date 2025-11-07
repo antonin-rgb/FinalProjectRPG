@@ -1,14 +1,16 @@
 package com.antoninrgb.finalprojectrpg.repository;
-import com.antoninrgb.finalprojectrpg.model.Weapon;
+import com.antoninrgb.finalprojectrpg.model.Journey;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface WeaponRepository extends JpaRepository<Weapon, Integer> {
+public interface JourneyRepository extends JpaRepository<Journey, Integer> {
 
-    List<Weapon> findAll();
+    List<Journey> findAll();
 
-    Weapon findById(int id);
+    Journey findById(int id);
 }
+
+

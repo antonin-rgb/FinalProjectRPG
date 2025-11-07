@@ -1,31 +1,21 @@
 package com.antoninrgb.finalprojectrpg.model;
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class Virtue {
 
-    @Id @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private int id;
-
-    private String name;
-
-    private String description;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "virtue_specialties",
-            joinColumns = @JoinColumn(name = "virtue_id"),
-            inverseJoinColumns = @JoinColumn(name = "specialty_id")
-    )
-    private List<Specialty> specialties = new ArrayList<>();
+    @Getter @Id @GeneratedValue (strategy = GenerationType.IDENTITY) private int id;
+    @Setter @Getter private String name;
+    @Setter @Getter private String description;
+    @Setter @Getter @ManyToOne private Specialty specialty;
 
     /* Constructors, getters, setters */
-    public Virtue(String name, String description, List<Specialty> specialties) {
+    public Virtue(String name, String description, Specialty specialty) {
         this.name = name;
         this.description = description;
-        this.specialties = specialties;
+        this.specialty = specialty;
     }
 
     public Virtue() {
@@ -36,31 +26,4 @@ public class Virtue {
         this.description = description;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public List<Specialty> getSpecialties() {
-        return specialties;
-    }
-
-    public void setSpecialty(List<Specialty> specialties) {
-        this.specialties = specialties;
-    }
 }

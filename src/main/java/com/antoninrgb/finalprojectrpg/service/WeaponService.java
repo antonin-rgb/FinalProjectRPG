@@ -22,4 +22,8 @@ public class WeaponService {
         return weaponRepository.save(weapon);
     }
 
+    public Weapon findById(int id) {
+        return weaponRepository.findById(id);
+    }
+
 }

@@ -1,8 +1,8 @@
 package com.antoninrgb.finalprojectrpg.demo;
+import static com.antoninrgb.finalprojectrpg.enums.EnemyType.*;
 import static com.antoninrgb.finalprojectrpg.enums.SpecialtyType.*;
 import com.antoninrgb.finalprojectrpg.model.*;
 import com.antoninrgb.finalprojectrpg.service.*;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -18,6 +18,8 @@ public class DataLoader implements CommandLineRunner {
     private final VirtueService virtueService;
     private final DominionService dominionService;
     private final SpecialtyService specialtyService;
+    private final EnemyService enemyService;
+    private final WeaponService weaponService;
 
 
     @Override
@@ -37,7 +39,7 @@ public class DataLoader implements CommandLineRunner {
         specialtyService.save(new Specialty("Castle's blessing", HP_BUFF, 30.0));
         specialtyService.save(new Specialty("Scorching earth", HP_DEBUFF, 20.0));
         specialtyService.save(new Specialty("Headhunter territory", ATK_BUFF, 20.0));
-        specialtyService.save(new Specialty("Coup de grâce", STEALTH_KILL, 50.0));
+        specialtyService.save(new Specialty("Coup de grâce", STEALTH_ATK, 50.0));
 
         /* Creating some paths, i.e. the path the avatar takes to fulfil their destiny. */
         pathService.save(new Path("Wizard", "Bearer of wisdom, bender of the incomprehensible.", 30.0, 10.0, 50.0));
@@ -61,10 +63,6 @@ public class DataLoader implements CommandLineRunner {
         sunnyPrairie.setSpecialty(specialtyService.findByName("Castle's blessing"));
         dominionService.save(sunnyPrairie);
 
-        Dominion astronomerLab = new Dominion("Astronomer's Lab", "Just outside the castle, a beatiful expanse of grass hosts small critters, delicious fruit and cute predators.");
-        astronomerLab.setSpecialty(specialtyService.findByName("Cosmic awareness"));
-        dominionService.save(astronomerLab);
-
         Dominion urticaJungle = new Dominion("Urtica Jungle", "Just outside the castle, a beatiful expanse of grass hosts small critters, delicious fruit and cute predators.");
         urticaJungle.setSpecialty(specialtyService.findByName("Headhunter territory"));
         dominionService.save(urticaJungle);
@@ -73,12 +71,70 @@ public class DataLoader implements CommandLineRunner {
         deathboundVolcano.setSpecialty(specialtyService.findByName("Scorching earth"));
         dominionService.save(deathboundVolcano);
 
+        Dominion astronomerLab = new Dominion("Astronomer's Lab", "Just outside the castle, a beatiful expanse of grass hosts small critters, delicious fruit and cute predators.");
+        astronomerLab.setSpecialty(specialtyService.findByName("Cosmic awareness"));
+        dominionService.save(astronomerLab);
+
+        /* Creating some enemies that will be assigned to a dominion and that our avatar will face */
+        Enemy prairieFox = new Enemy("Prairie Fox", "cute little fox", GOON, 30.0, 10.0, 0.0);
+        prairieFox.setDominion(dominionService.findByName("Sunny prairie"));
+        enemyService.save(prairieFox);
+        Enemy rosebud = new Enemy("Rosebud Wereseed", "seed from the Hope Rose that has been cursed", GOON, 20.0, 10.0, 20.0);
+        rosebud.setDominion(dominionService.findByName("Sunny prairie"));
+        enemyService.save(rosebud);
+        Enemy redFox = new Enemy("Red Fox", "something that doesn't remind you at all of a cute little fox", GOON, 50.0, 40.0, 0.0);
+        redFox.setDominion(dominionService.findByName("Sunny prairie"));
+        enemyService.save(redFox);
+        Enemy rhynobull = new Enemy("Rhynobull", "docile guardian of the sunny prairie", BOSS, 200.0, 60.0, 30.0);
+        rhynobull.setDominion(dominionService.findByName("Sunny prairie"));
+        enemyService.save(rhynobull);
+
+        Enemy feline = new Enemy("Feline Stalker", "inhabitant of the forest, merciless when hungry", GOON, 50.0, 10.0, 0.0);
+        feline.setDominion(dominionService.findByName("Urtica Jungle"));
+        enemyService.save(feline);
+        Enemy killerplant = new Enemy("Killerplant", "#", GOON, 50.0, 10.0, 0.0);
+        killerplant.setDominion(dominionService.findByName("Urtica Jungle"));
+        enemyService.save(killerplant);
+        Enemy voidCougar = new Enemy("Voidcougar", "#", GOON, 50.0, 10.0, 0.0);
+        voidCougar.setDominion(dominionService.findByName("Urtica Jungle"));
+        enemyService.save(voidCougar);
+
+        Enemy scorchedPebble = new Enemy("Scorched Pebble", "#", GOON, 50.0, 10.0, 10.0);
+        scorchedPebble.setDominion(dominionService.findByName("Deathbound volcano"));
+        enemyService.save(scorchedPebble);
+        Enemy seismicMudkip = new Enemy("Seismic Mudkip", "#", GOON, 200.0, 80.0, 00.0);
+        seismicMudkip.setDominion(dominionService.findByName("Deathbound volcano"));
+        enemyService.save(seismicMudkip);
+        Enemy lavaShielder = new Enemy("Lava Shielder", "#", GOON, 50.0, 10.0, 0.0);
+        lavaShielder.setDominion(dominionService.findByName("Deathbound volcano"));
+        enemyService.save(lavaShielder);
+
+        Enemy astrologerZealot = new Enemy("Astrologer Zealot", "#", GOON, 50.0, 10.0, 0.0);
+        astrologerZealot.setDominion(dominionService.findByName("Astronomer's Lab"));
+        enemyService.save(astrologerZealot);
+        Enemy zodiacSpectre = new Enemy("Zodiac Spectre", "#", GOON, 50.0, 10.0, 0.0);
+        zodiacSpectre.setDominion(dominionService.findByName("Astronomer's Lab"));
+        enemyService.save(zodiacSpectre);
+        Enemy iridescentSnakedrake = new Enemy("Iridescent Snakedrake", "#", BOSS, 900.0, 70.0, 500.0);
+        iridescentSnakedrake.setDominion(dominionService.findByName("Astronomer's Lab"));
+        enemyService.save(iridescentSnakedrake);
+
+        /* Creating some weapons to use in battle. */
+        Weapon test1 = new Weapon("name", "description", 0.0,0.0,0.0,0.0);
+        weaponService.save(test1);
+
+        Weapon test2 = new Weapon("name", "description", 0.0,0.0,0.0,0.0);
+        weaponService.save(test2);
+
+        Weapon test3 = new Weapon("name", "description", 0.0,0.0,0.0,0.0);
+        weaponService.save(test3);
+
         /* Creating an example of avatar. */
         Avatar tutorialWiseman = new Avatar("Tutorial Wiseman");
-        tutorialWiseman.setVirtue(virtueService.findByName("Courage"));
-        tutorialWiseman.setDominion(dominionService.findByName("Sunny prairie"));
         avatarService.save(tutorialWiseman);
         avatarService.assignPath(1,1);
+        avatarService.assignDominion(1,1);
+        avatarService.assignVirtue(1,1);
 
 
     }

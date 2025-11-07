@@ -1,5 +1,8 @@
 package com.antoninrgb.finalprojectrpg.model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Dominion {
@@ -15,11 +18,16 @@ public class Dominion {
     @ManyToOne
     private Specialty specialty;
 
+    @OneToMany(mappedBy = "dominion")
+    @JsonIgnore
+    private List<Enemy> enemies;
+
     /* Constructors, getters, setters */
-    public Dominion(String name, String description, Specialty specialty) {
+    public Dominion(String name, String description, Specialty specialty, List<Enemy> enemies) {
         this.name = name;
         this.description = description;
         this.specialty = specialty;
+        this.enemies = enemies;
     }
 
     public Dominion() {
@@ -56,5 +64,13 @@ public class Dominion {
 
     public void setSpecialty(Specialty specialty) {
         this.specialty = specialty;
+    }
+
+    public List<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public void setEnemies(List<Enemy> enemies) {
+        this.enemies = enemies;
     }
 }

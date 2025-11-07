@@ -1,5 +1,6 @@
 package com.antoninrgb.finalprojectrpg.model;
 import com.antoninrgb.finalprojectrpg.enums.EnemyType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -17,29 +18,36 @@ public class Enemy {
 
     private double hp;
 
-    @ManyToOne
-    private Specialty specialty;
-
     private double attack;
 
     private double magic;
 
+    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "dominion_id")
     private Dominion dominion;
 
     /* Constructors, getters, setters */
-    public Enemy(String name, String description, EnemyType enemyType, double hp, Specialty specialty, double attack, double magic, Dominion dominion) {
+    public Enemy(String name, String description, EnemyType enemyType, double hp, double attack, double magic, Dominion dominion) {
         this.name = name;
         this.description = description;
         this.enemyType = enemyType;
         this.hp = hp;
-        this.specialty = specialty;
         this.attack = attack;
         this.magic = magic;
         this.dominion = dominion;
     }
 
     public Enemy() {
+    }
+
+    public Enemy(String name, String description, EnemyType enemyType, double hp, double attack, double magic) {
+        this.name = name;
+        this.description = description;
+        this.enemyType = enemyType;
+        this.hp = hp;
+        this.attack = attack;
+        this.magic = magic;
     }
 
     public int getId() {
@@ -76,14 +84,6 @@ public class Enemy {
 
     public void setHp(double hp) {
         this.hp = hp;
-    }
-
-    public Specialty getSpecialty() {
-        return specialty;
-    }
-
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
     }
 
     public double getAttack() {

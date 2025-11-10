@@ -34,3 +34,6 @@ Endpoints for a normal use case:
 | **POST**  | `/avatar/choose/virtue`    | Chooses the current Avatar’s guiding Virtue.                                  |
 | **POST**  | `/avatar/choose/weapon`    | Selects the Avatar’s Weapon for battle.                                       |
 | **POST**  | `/journey/battle`          | Starts the battle against a randomly selected enemy from the chosen Dominion. |
+
+
+Link to presentation: https://www.canva.com/design/DAG4DajBeHs/QZ8NdVscQL5FuadIy0yj6A/edit?utm_content=DAG4DajBeHs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton

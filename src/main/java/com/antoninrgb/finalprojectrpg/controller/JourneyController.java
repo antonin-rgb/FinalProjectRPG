@@ -21,7 +21,7 @@ public class JourneyController {
     }
 
     @PostMapping("/start")
-    public Journey create(@RequestBody Journey journey) {
+    public String create(@RequestBody Journey journey) {
         return journeyService.save(journey);
     }
 

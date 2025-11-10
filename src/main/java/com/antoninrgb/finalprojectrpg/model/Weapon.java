@@ -9,7 +9,7 @@ public class Weapon {
     @Getter @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private int id;
     @Getter @Setter private String name;
     @Getter @Setter private String description;
-    @Getter @Setter private double atk;
+    @Getter @Setter private double attack;
     @Getter @Setter private double magicPercent;
     @Getter @Setter private double crit;
 
@@ -17,7 +17,7 @@ public class Weapon {
     public Weapon(String name, String description, double atk, double magicPercent, double crit) {
         this.name = name;
         this.description = description;
-        this.atk = atk;
+        this.attack = atk;
         this.magicPercent = magicPercent;
         this.crit = crit;
     }

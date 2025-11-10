@@ -12,6 +12,7 @@ public class Journey {
     @Setter @Getter @ManyToOne private Dominion dominion;
     @Getter @Setter @ManyToOne private Enemy enemy;
     @JsonIgnore @Getter @Setter private boolean playerWon;
+    // @Getter @Setter private int stage; variable to keep the stage of the journey, implement soon
 
     /* Constructors, getters, setters */
     public Journey(Avatar avatar, Enemy enemy, boolean playerWon) {

@@ -8,5 +8,4 @@ public interface AvatarRepository extends JpaRepository<Avatar, Integer> {
 
     Avatar findById(int id);
 
-    Avatar findByNickname(String nickname);
 }

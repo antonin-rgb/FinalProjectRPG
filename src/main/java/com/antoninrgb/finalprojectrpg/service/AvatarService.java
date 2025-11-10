@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class AvatarService {
@@ -15,17 +14,13 @@ public class AvatarService {
     private final AvatarRepository avatarRepository;
     private final PathService pathService;
     private final VirtueService virtueService;
-    private final DominionService dominionService;
-    private final EnemyService enemyService;
     private final WeaponService weaponService;
     private final UserService userService;
 
-    public AvatarService(AvatarRepository avatarRepository, PathService pathService, VirtueService virtueService, DominionService dominionService, EnemyService enemyService, WeaponService weaponService, UserService userService) {
+    public AvatarService(AvatarRepository avatarRepository, PathService pathService, VirtueService virtueService, WeaponService weaponService, UserService userService) {
         this.avatarRepository = avatarRepository;
         this.pathService = pathService;
-        this.dominionService = dominionService;
         this.virtueService = virtueService;
-        this.enemyService = enemyService;
         this.weaponService = weaponService;
         this.userService = userService;
     }
@@ -45,7 +40,7 @@ public class AvatarService {
         User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
         user.setActiveAvatarId(avatarId);
         userService.saveUser(user);
-        return avatarRepository.findById(avatarId).getNickname() + "... your journey awaits... ";
+        return avatarRepository.findById(avatarId).getNickname() + "...\n...your journey awaits...\n\nTime to get prepared! Choose a Dominion, a Path, a Virtue and a Weapon!";
     }
 
     public Avatar assignPath(int pathId) {
@@ -88,10 +83,6 @@ public class AvatarService {
             avatar.setWeapon(weapon);
             return avatarRepository.save(avatar);
         }
-    }
-
-    public Avatar findByNickname(String nickname) {
-        return avatarRepository.findByNickname(nickname);
     }
 
     public Avatar findById(int id) {

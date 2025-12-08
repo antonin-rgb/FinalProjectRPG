@@ -88,7 +88,8 @@ public class JourneyService {
                     break;
             }
         }
-        // Rounds of the battle, if Avatar has STEALTH_ATK specialty, the enemy is automatically killed in that round.
+
+        // Rounds of the battle, if Avatar has STEALTH_ATK specialty, there is a chance the enemy is instantly killed in each round.
         while (avatarCurrentHp > 0 && enemyCurrentHp > 0) {
 
             // Avatar attack
@@ -120,7 +121,6 @@ public class JourneyService {
         }
         battleLog.append("You win!\n");
         return battleLog.toString();
-
     }
 
     // Calculate the damage dealt by the avatar

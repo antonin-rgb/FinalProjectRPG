@@ -29,13 +29,14 @@ public class AvatarService {
         return avatarRepository.findAll();
     }
 
-    /* Upon creating a new player, an inventory is automatically created with a set amount of gold and assigned to the same player. */
+    // Create a new avatar, for the currently logged in player
     public Avatar save(Avatar avatar) {
         User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
         avatar.setUser(user);
         return avatarRepository.save(avatar);
     }
 
+    // Choose an avatar to play with
     public String chooseActiveAvatar(int avatarId) {
         User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
         user.setActiveAvatarId(avatarId);
@@ -43,6 +44,7 @@ public class AvatarService {
         return avatarRepository.findById(avatarId).getNickname() + "...\n...your journey awaits...\n\nTime to get prepared! Choose a Dominion, a Path, a Virtue and a Weapon!";
     }
 
+    // Choose a Path for the currently active avatar
     public Avatar assignPath(int pathId) {
         User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
         int id = user.getActiveAvatarId();
@@ -59,6 +61,7 @@ public class AvatarService {
         }
     }
 
+    // Choose a Virtue for the currently active avatar
     public Avatar assignVirtue(int virtueId) {
         User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
         int id = user.getActiveAvatarId();
@@ -72,6 +75,7 @@ public class AvatarService {
         }
     }
 
+    // Choose a Weapon for the currently active avatar
     public Avatar assignWeapon(int weaponId) {
         User user = userService.getUser(SecurityContextHolder.getContext().getAuthentication().getName());
         int id = user.getActiveAvatarId();
